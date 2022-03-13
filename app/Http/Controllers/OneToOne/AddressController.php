@@ -5,7 +5,8 @@ namespace App\Http\Controllers\OneToOne;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-Use Illuminate\Support\Facedes\Hash;
+use App\Models\Address;
+use Hash;
 
 class AddressController extends Controller
 {
@@ -16,7 +17,7 @@ class AddressController extends Controller
     }
     // only single user saved
     public function save(Request $request){
-        $user = User::create([
+        $id = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -24,8 +25,9 @@ class AddressController extends Controller
         Address::create([
             'post_code' => $request->post_code,
             'address' => $request->address,
-            'user_id' => $user->id
+            'user_id' => $id->id
         ]);
-        return response()->json('Successfully saved user data ');
+        $user = User::with('address')->find($id->id);
+        return response()->json($user);
     }
 }

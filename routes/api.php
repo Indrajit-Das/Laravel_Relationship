@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\OneoOne\AddressController;
+use App\Http\Controllers\OneToOne\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('demo')->group(function(){
+Route::prefix('one-to-one')->group(function(){
     Route::controller(AddressController::class)->group(function(){
         Route::get('/users','allUser');
         Route::post('/user','save');
